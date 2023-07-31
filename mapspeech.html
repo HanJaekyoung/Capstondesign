@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>음성인식 기능</title>
+</head>
+<body>
+    <button id="start">음성인식 시작</button>
+    <button id="stop">음성인식 멈추기</button>
+</body>
+<script>
+   // const speech = new webkitSpeechRecognition;
+   if (!("webkitSpeechRecognition" in window)){
+    alert("지원 안됨 크롬으로 가세용!~~~")
+   } else {
+        const speech = new webkitSpeechRecognition;
+
+        document.getElementById("start").addEventListener("click", () => {
+            speech.start();
+        })
+
+        document.getElementById("stop").addEventListener("click", () => {
+            speech.stop();
+        })
+
+        speech.addEventListener("result", (event) => {
+            const { transcript }  = event["results"][0][0]
+            console.log(transcript);
+        })
+   }
+</script>
+</html>
