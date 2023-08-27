@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>Move Camera Easing</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script
+    type="module" src="./index.js"></script>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+
+    <!-- 
+      The `defer` attribute causes the callback to execute after the full HTML
+      document has been parsed. For non-blocking uses, avoiding race conditions,
+      and consistent behavior across browsers, consider loading using Promises.
+      See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+      for more information.
+      -->
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=beta"
+      defer
+    ></script>
+    <script>
+        import { Easing, Tween, update } from "@tweenjs/tween.js";
+let map;
+const cameraOptions = {
+  tilt: 0,
+  heading: 0,
+  zoom: 3,
+  center: { lat: 35.6594945, lng: 139.6999859 },
+};
+const mapOptions = {
+  ...cameraOptions,
+  mapId: "15431d2b469f209e",
+};
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), mapOptions);
+  // install Tweenjs with npm i @tweenjs/tween.js
+  new Tween(cameraOptions) // Create a new tween that modifies 'cameraOptions'.
+    .to({ tilt: 65, heading: 90, zoom: 18 }, 15000) // Move to destination in 15 second.
+    .easing(Easing.Quadratic.Out) // Use an easing function to make the animation smooth.
+    .onUpdate(() => {
+      map.moveCamera(cameraOptions);
+    })
+    .start(); // Start the tween immediately.
+
+  // Setup the animation loop.
+  function animate(time) {
+    requestAnimationFrame(animate);
+    update(time);
+  }
+
+  requestAnimationFrame(animate);
+}
+
+window.initMap = initMap;
+
+    </script>
+    
+  </body>
+</html>
