@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Simple WebGL Overlay</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://unpkg.com/three@0.129.0/build/three.min.js"></script>
+    <script type="text/javascript" src="./googleroute.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script type="module" src="./index.js"></script>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+
+    <!-- 
+      The `defer` attribute causes the callback to execute after the full HTML
+      document has been parsed. For non-blocking uses, avoiding race conditions,
+      and consistent behavior across browsers, consider loading using Promises.
+      See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+      for more information.
+      -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOyC63FyojhcJ3wX_sqqfKRRoyzwQO6dc&callback=initMap&v=beta"
+      defer
+    ></script>
+  </body>
+</html>
